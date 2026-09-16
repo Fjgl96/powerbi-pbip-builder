@@ -66,9 +66,15 @@ de zona, títulos dinámicos).
 
 ## Versionado
 
-Este repositorio es la fuente de verdad del skill. El ejemplar instalado en
-`~/.agents/skills/powerbi-pbip-builder/` es la copia operativa: al versionar un
-cambio, replicarlo en la copia instalada (o reinstalar con el release).
+Fuente de verdad: <https://github.com/Fjgl96/powerbi-pbip-builder> (rama `main`).
+
+```powershell
+git clone https://github.com/Fjgl96/powerbi-pbip-builder.git
+```
+
+El ejemplar instalado en `~/.agents/skills/powerbi-pbip-builder/` es la copia
+operativa: al versionar un cambio, replicarlo en la copia instalada
+(o reinstalar desde el release).
 
 - Rama `main`; releases con tag `vX.Y.Z` (ver `CHANGELOG.md`).
 - Los aprendizajes nuevos van a `docs/APRENDIZAJES.md` **y** al catálogo de
