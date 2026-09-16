@@ -201,9 +201,9 @@ const L = {
   m: 15, gap: 5,
   bannerH: 52,
   slicerY: 57, slicerH: 60,
-  kpiY: 122, kpiH: 90, cardW: 308,
-  heroY: 217, heroH: 245, halfW: 622, halfW2: 623,
-  bottomY: 467, bottomH: 247
+  kpiY: 122, kpiH: 104, cardW: 308,
+  heroY: 231, heroH: 235, halfW: 622, halfW2: 623,
+  bottomY: 471, bottomH: 243
 };
 
 function projColumn(entity, property, opts = {}) {
@@ -410,20 +410,23 @@ function visCard(id, medida, displayName, pos, tabOrder, opt = {}) {
   return v;
 }
 function visCombo(id, pos, tabOrder) {
-  const v = viz(id, { ...pos, tabOrder }, {
-    visualType: 'lineClusteredColumnComboChart',
+  return viz(id, { ...pos, tabOrder }, {
+    visualType: 'lineChart',
     query: {
       queryState: {
         Category: { projections: [projColumn('Calendario', 'MesAnio', { active: true })] },
-        Y: { projections: [projMeasure('Medidas', 'Venta Neta', 'Venta real')] },
-        Y2: { projections: [projMeasure('Medidas', 'Presupuesto', 'Presupuesto')] }
+        Y: { projections: [projMeasure('Medidas', 'Venta Neta', 'Real (S/)'), projMeasure('Medidas', 'Presupuesto', 'Meta (S/)')] }
       },
       sortDefinition: { sort: [sortCol('Calendario', 'MesAnio', 'Ascending')] }
     },
-    visualContainerObjects: title('Real vs meta por mes (S/) — últimos 12 meses')
+    objects: {
+      lineStyles: [
+        { properties: { areaShow: { expr: { Literal: { Value: 'false' } } }, showMarker: { expr: { Literal: { Value: 'false' } } } } },
+        { properties: { lineStyle: { expr: { Literal: { Value: "'dashed'" } } }, strokeWidth: { expr: { Literal: { Value: '2D' } } } }, selector: { metadata: 'Medidas.Presupuesto' } }
+      ]
+    },
+    visualContainerObjects: title('Venta real vs meta por mes (S/)')
   });
-  v.filterConfig = filtroCategorico('Calendario', 'MesAnio', MESES_VENTANA);
-  return v;
 }
 function visBarrasZona(id, pos, tabOrder) {
   return viz(id, { ...pos, tabOrder }, {

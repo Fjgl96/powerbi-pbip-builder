@@ -10,7 +10,7 @@ consultar sus referencias para dudas profundas; esta guía manda para lo ejecuta
 ## 0. Reglas de oro
 
 1. Una página = una pregunta de negocio (3-30-300: 3 s la entiende, 30 s la usa, 300 s la audita).
-2. El título cuenta la historia con el hallazgo, no describe el gráfico (`La brecha se abre desde Ago: -694M, 86.4%`). **Títulos de hallazgo DINÁMICOS**: el texto es una medida DAX (`text.expr.Measure`) que se recalcula con datos y filtros — nunca un literal que envejece. Solo el banner de página queda estático (shape sin expresiones).
+2. El título cuenta la historia con el hallazgo, no describe el gráfico (`La brecha se abre desde Ago: -694M, 86.4%`). Dos variantes válidas: **hallazgo dinámico** (medida DAX, se recalcula con datos y filtros) o **descriptivo neutro** (`Venta real vs meta por mes (S/)`, cero mantenimiento). Nunca un hallazgo estático que envejece. El banner de página queda estático (shape sin expresiones).
 3. Máximo 12-15 visuales por página; si un visual no responde una pregunta distinta, se elimina.
 4. La maqueta HTML aprobada es el contrato: mismas secciones, jerarquía y colores semánticos.
 5. El estilo vive en el TEMA (`assets/tema-elite.json`); per-visual solo excepciones (condicional, títulos, etiquetas).
@@ -66,15 +66,21 @@ con carga semántica por página. El tema ya ordena `dataColors`:
 
 | Zona | y | h | x / ancho |
 |---|---|---|---|
-| Banner shape (título dentro del shape) | 0 | 52 | x0 w1280 (exento de márgenes) |
-| Fila de slicers (3) | 57 | 60 | w196 x667 / 868 / 1069 (compactos a la derecha; 3 ítems ≠ grilla KPI: evita `COLUMN_MISALIGN`) |
-| Franja KPIs (4) | 122 | 90 | w308/311 x15 / 328 / 641 / 954 |
-| Héroes (2) | 217 | 245 | x15 w622 · x642 w623 |
-| Detalle (tabla/matriz) | 467 | 247 | x15 w622 · x642 w623 |
+| Header: logo (shape 34×34) + título textbox | 6 | 36 | logo x15 w34 · título x54 w800 (borde inferior 42) |
+| Fila de slicers (3) | 47 | 60 | w196 x667 / 868 / 1069 (3 ítems ≠ grilla KPI: evita `COLUMN_MISALIGN`) |
+| Franja KPIs (4) | 112 | 104 | w308/311 x15 / 328 / 641 / 954 |
+| Héroes (2) | 221 | 235 | x15 w622 · x642 w623 |
+| Detalle (tabla/matriz) | 461 | 253 | x15 w622 · x642 w623 |
 
 **Slicers: altura 60 mínima** (estándar de casa). Por debajo de 60 el dropdown se
 desborda del contenedor y tapa la fila siguiente; por debajo de 44 directamente
 no es usable. `valida_pbip.js` lo chequea (error <44, aviso <60).
+
+Variante con **banner shape** (0,0,1280,52) en lugar del header de identidad:
+sumar +10 px a las filas siguientes (slicers 57/60 · KPIs 122/104 · héroes 231/235 ·
+detalle 471/243). Los gaps deben ser **exactamente 5 px** (el validador wireframe
+lo exige; 9 o 15 px = error). KPIs h=104 para que quepan label + valor +
+referencia (`referenceLabel`) sin recortes.
 
 Variantes: 3 páginas elite → P1 Resumen (¿vamos a cumplir?), P2 Rentabilidad
 (¿a qué costo?), P3 Foco (¿dónde actuar?). Slicers solo por el grano del hecho
@@ -87,7 +93,7 @@ que el presupuesto soporta (nunca vendedor si el ppto no lo tiene).
 | 1 KPI | `card` (1 medida) | `kpi` visual; varias medidas por tarjeta |
 | Ranking categorías | `barChart` H, sort DESC, ≥6 categorías | donut si la pregunta es comparación |
 | Tendencia ≥3 puntos de tiempo (mes numérico o fecha) | `lineChart`/combo | meses como texto, 1-2 puntos |
-| Real vs meta por mes | `lineClusteredColumnComboChart` (Y columnas real, Y2 línea ppto) | dos columnas agrupadas saturadas |
+| Real vs meta por mes (misma unidad) | `lineChart` con 2 series (Real sólida, Meta punteada) o columnas agrupadas — **un solo eje** | combo con `Y2`: asigna eje secundario automático (anti-patrón) |
 | Cumplimiento % por mes | `columnChart` con gradiente rojo→verde | pie/donut |
 | Parte-de-todo ≤5 | donut solo si la pregunta es la proporción | donut >5 categorías → barras |
 | Detalle exacto | `tableEx` / `pivotTable` | gráfico cuando la tarea es leer |
@@ -103,9 +109,11 @@ fondo semáforo con `visualContainerObjects.background` + `Conditional Cases`
 que el color no aplique. Ancho mínimo 293 px para `#,0` de 9 dígitos (evita
 `758 mi...` truncado).
 
-**Combo Real vs Ppto por mes:** `Category` = mes (`MesAnio`, sort ascendente);
-`Y` = medidas de columnas; `Y2` = línea ppto (color `#8A9BA8`); título con
-hallazgo; sin ejes de valor redundantes (las etiquetas ya están).
+**Real vs meta mensual (misma unidad):** evitar el combo con `Y2` — PBI asigna la
+línea al **eje secundario** automáticamente y las escalas divergen (anti-patrón de
+doble eje, ver §7). Usar `lineChart` de 2 series (Real sólida navy, Meta gris
+punteada, sin área/marcadores) o columnas agrupadas: un solo eje, lectura directa.
+`Y2` solo cuando las unidades difieren de verdad (y documentarlo en el brief).
 
 **Barras de ranking:** `sortDefinition` por medida DESC; etiquetas encendidas
 fuera del extremo; gradiente vertical `dataPoint.fill` `linearGradient2` tint→base
@@ -163,7 +171,7 @@ usan **`Literal` hex** (nunca `ThemeDataColor`, que pinta negro).
 - Donut >5 categorías; línea con <3 puntos; eje de valor truncado (barras desde 0).
 - Semaforizar todo: el color es un presupuesto de atención (1-2 focos por página).
 - Tarjetas con varias medidas, o títulos que describen en vez de contar.
-- Unidades mezcladas S/ y % en el mismo gráfico; dobles ejes sin motivo.
+- Unidades mezcladas S/ y % en el mismo gráfico; **doble eje con la misma unidad** (el `Y2` del combo pone la línea en eje secundario y desalinea escalas: usar un solo eje).
 - Fuentes distintas a Segoe UI; más de 3 tamaños de texto en un mismo bloque.
 
 ## 8. Design Brief (obligatorio antes de escribir visuales)

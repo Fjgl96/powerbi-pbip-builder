@@ -86,8 +86,9 @@
         "cardCalloutArea": [{ "paddingUniform": 0 }],
         "border": [{ "show": true, "color": { "solid": { "color": "#E2E8EF" } }, "radius": 6 }],
         "title": [{ "show": false }],
-        "spacing": [{ "customizeSpacing": true, "verticalSpacing": -6 }],
-        "padding": [{ "top": 0, "bottom": 0, "left": 0, "right": 0 }]
+        "spacing": [{ "customizeSpacing": false }],
+        "padding": [{ "top": 0, "bottom": 0, "left": 0, "right": 0 }],
+        "visualHeader": [{ "show": false }]
       }
     },
     "barChart": {

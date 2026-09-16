@@ -2,7 +2,7 @@
 name: powerbi-pbip-builder
 description: Elabora reportes Power BI (PBIP) completos desde cero o existentes, con MCP en modelo vivo o solo con archivos TMDL+PBIR, incluyendo medidas DAX, relaciones, páginas ejecutivas y corrección de gráficos y etiquetas. Aplica guía de diseño elite (paleta IBCS, tipografía, grid, tema propio, formato condicional). Usar SIEMPRE que el usuario quiera crear un reporte, cargar CSV/Excel, auditar o reparar un modelo, rediseñar páginas, o cuando un .pbip dé errores al abrir, medidas en blanco/0, totales repetidos, YTD vacío o tarjetas truncadas.
 metadata:
-  version: 2.1.0
+  version: 2.1.1
 ---
 
 # Power BI PBIP Builder
@@ -111,7 +111,7 @@ Ver `references/auditoria-modelos.md`.
 
 Toda decisión visual sale de la guía de diseño: paleta IBCS (canvas `#E9EEF3`, actual `#0C3549`, comparación `#8A9BA8`, semáforos `#44C088`/`#F2C14E`/`#ED7373`), tipografía Segoe UI, grid 1280×720 (márgenes 15/15/6, gaps 5, banner 52, borde inferior ≤714), cookbook por tipo de visual, catálogo de formato condicional, anti-patrones y **Design Brief** antes de escribir. El estilo global lo aplica `assets/tema-elite.json` (registrado en `report.json`); per-visual solo excepciones justificadas (título con hallazgo, CF, `displayName`, gradientes).
 
-Plantilla elite 1280×720 (validada 0/0 con `pbir_validate_wireframe`): banner **shape** (0,0,1280,52) con el título dentro del shape · slicers y=57 h=60 (nunca menos: el dropdown se desborda) · KPIs y=122 h=90 (4×308/311) · héroes y=217 h=245 (622+623) · detalle y=467 h=247 · borde inferior ≤714. Un textbox en (0,0) NO cuenta como banner. Una medida por tarjeta. `#,0` montos, `0.0%` %, `+#,0;-#,0` desviación. **Títulos de hallazgo dinámicos por medida** (se actualizan solos; ver pbir-visuales.md); orden cronológico en tiempo y DESC en rankings. Donut solo ≤5 categorías; barras H para rankings.
+Plantilla elite 1280×720 (validada 0/0 con `pbir_validate_wireframe`): header de identidad con logo (shape 34×34 en 15,8) + título textbox (54,6) · slicers y=47 h=60 (nunca menos: el dropdown se desborda) · KPIs y=112 h=104 (4×308/311; la altura permite label + valor + referencia) · héroes y=221 h=235 (622+623) · detalle y=461 h=253 · gaps **exactos de 5 px** · borde inferior ≤714. Variante banner shape (0,0,1280,52): +10 px a cada fila (un textbox en (0,0) NO cuenta como banner). Una medida por tarjeta. `#,0` montos, `0.0%` %, `+#,0;-#,0` desviación. Títulos: descriptivo neutro u hallazgo dinámico por medida (nunca hallazgo estático); orden cronológico en tiempo y DESC en rankings. Donut solo ≤5 categorías; barras H para rankings; **misma unidad ⇒ un solo eje** (nunca combo `Y2`).
 - **P1 Resumen ¿Vamos a cumplir?** KPIs Real/Ppto/Cumpl/Desv · combo Real vs Ppto por `MesAnio` + columna Cumpl% por mes · tabla brecha por zona. Título: `La brecha se abre desde Ago: -694M, 86.4%`.
 - **P2 Rentabilidad ¿A qué costo?** KPIs Utilidad + Margen · margen Real vs Ppto + barras por tipo · tabla por tipo con utilidad/margen.
 - **P3 Foco ¿Dónde actuar?** KPIs YTD quartet (Real/Ppto/Cumpl/Desv YTD, nunca unidades sueltas) · mix + Cumpl% por zona + línea YTD · tabla control por cliente con `Alerta Rezagado`, rezagados primero. Slicers solo por el grano del ppto (vendedor nunca como slicer global si el ppto no lo tiene).

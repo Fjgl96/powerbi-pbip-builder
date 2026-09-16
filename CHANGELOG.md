@@ -2,6 +2,28 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) · Versionado semántico.
 
+## [2.1.1] — 2026-09-15
+
+Iteración de refinamiento (feedback de revisión de diseño).
+
+### Corregido
+- **Doble eje por accidente**: el combo (`Y2`) pone la línea en un **eje secundario**
+  automático y las escalas divergen con el filtro. Regla: misma unidad ⇒ un solo eje
+  (`lineChart` de 2 series o columnas agrupadas). Documentado en `diseno-elite.md`
+  (selección de visual, cookbook y anti-patrones); plantilla y proyecto migrados.
+- **Tarjetas `cardVisual` recortadas**: con `spacing -6` y h=90 el label se cortaba
+  arriba. Fix: `customizeSpacing:false` en el tema + fila KPI h=104.
+- Gaps del header deben ser **exactamente 5 px** (logo↔título, header↔slicers);
+  el validador wireframe los exige (9/15 px = error).
+- Header de identidad documentado: logo (shape 34×34) + título textbox, para que el
+  reporte diga **qué es** (marca + "Reporte de ventas" + período), no solo el hallazgo.
+
+### Cambiado
+- Layout canónico actualizado: header y≈6 (borde 42) · slicers 47/60 · KPIs 112/104 ·
+  héroes 221/235 · detalle 461/253 (variante banner: +10 px por fila).
+- Títulos: se aceptan dos variantes (hallazgo **dinámico** con medidas o
+  **descriptivo neutro**); nunca hallazgo estático.
+
 ## [2.1.0] — 2026-09-15
 
 Iteración "Cordillera" (rediseño elite + lecciones de esquema estricto).
