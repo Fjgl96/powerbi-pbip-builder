@@ -2,6 +2,26 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) · Versionado semántico.
 
+## [2.1.2] — 2026-09-15
+
+Iteración de unidades y limpieza de tarjetas (feedback de revisión).
+
+### Corregido
+- **Unidad repetida por etiqueta** ("mill. mill. mill."): la unidad se declara UNA
+  vez (título del gráfico o header de columna) y se usan medidas escaladas
+  (`Venta M`, `Meta M`, `Desviación M`, `Venta YTD M`, `Desviación YTD M`).
+  KPI con sufijo compacto ("8.1 M"). Regla documentada en `diseno-elite.md`.
+- **Divisor interno de `cardVisual`** (línea entre valor y referencia) apagado por visual.
+- **Fondo del `referenceLabel`** apagado (`backgroundShow:false`).
+- Titlebox con altura anti-scrollbar (el caret/scroll del textbox se confundía con un elemento).
+
+### Cambiado
+- Semáforo de tarjetas: la barra de acento se retira; el color de estado pasa al
+  **valor** (tonos oscuros accesibles, `value.fontColor` por medida) + tinte solo
+  en la tarjeta de cumplimiento.
+- Tabla en millones con 2 decimales (headers "Venta (S/ M)", "Desviación (S/ M)").
+- Header de identidad (logo + "Reporte de ventas") con caja de título sin scrollbar.
+
 ## [2.1.1] — 2026-09-15
 
 Iteración de refinamiento (feedback de revisión de diseño).

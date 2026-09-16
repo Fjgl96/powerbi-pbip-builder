@@ -101,13 +101,13 @@ que el presupuesto soporta (nunca vendedor si el ppto no lo tiene).
 
 ## 5. Cookbook por tipo (ejecución)
 
-**Tarjeta KPI (`card` clásica):** una medida por tarjeta; valor con
-`objects.labels` (`fontSize 22D`, `labelDisplayUnits` según magnitud, `color` por
-medida semáforo); label con `objects.categoryLabels` (show, 10D, `#5A6B7B`);
-fondo semáforo con `visualContainerObjects.background` + `Conditional Cases`
-(ver §6). ⚠️ `calloutValue` NO existe en `card` (es de `cardVisual`): usarlo hace
-que el color no aplique. Ancho mínimo 293 px para `#,0` de 9 dígitos (evita
-`758 mi...` truncado).
+**Tarjeta KPI:** usar `cardVisual` moderno (bucket `Data`): valor con color de
+estado (tonos oscuros accesibles), `referenceLabel` con el delta vs meta
+(`backgroundShow:false`), `divider` apagado, sin barras decorativas; tinte de
+fondo solo en la tarjeta crítica. **Unidad declarada UNA vez** (título del
+gráfico o header de columna, ej. "(S/ millones)"): celdas/etiquetas con números
+limpios; en KPI usar sufijo compacto ("8.1 M"). Medidas escaladas: `DIVIDE(x, 1000000)`.
+La `card` clásica queda documentada en `pbir-visuales.md` (fallback verificado).
 
 **Real vs meta mensual (misma unidad):** evitar el combo con `Y2` — PBI asigna la
 línea al **eje secundario** automáticamente y las escalas divergen (anti-patrón de
@@ -172,6 +172,7 @@ usan **`Literal` hex** (nunca `ThemeDataColor`, que pinta negro).
 - Semaforizar todo: el color es un presupuesto de atención (1-2 focos por página).
 - Tarjetas con varias medidas, o títulos que describen en vez de contar.
 - Unidades mezcladas S/ y % en el mismo gráfico; **doble eje con la misma unidad** (el `Y2` del combo pone la línea en eje secundario y desalinea escalas: usar un solo eje).
+- Unidad repetida en cada etiqueta ("mill. mill. mill."): declararla una vez en el título/header y usar medidas escaladas.
 - Fuentes distintas a Segoe UI; más de 3 tamaños de texto en un mismo bloque.
 
 ## 8. Design Brief (obligatorio antes de escribir visuales)
