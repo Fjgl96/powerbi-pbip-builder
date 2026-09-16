@@ -1,0 +1,6 @@
+# temporales y capturas de verificación
+*.png
+*.bak_*
+capturas/
+_temp/
+node_modules/
