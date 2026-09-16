@@ -237,27 +237,6 @@ function viz(name, pos, visual) {
 }
 const lit = (v) => ({ expr: { Literal: { Value: v } } });
 
-const MESES_VENTANA = ['2025-01', '2025-02', '2025-03', '2025-04', '2025-05', '2025-06',
-  '2025-07', '2025-08', '2025-09', '2025-10', '2025-11', '2025-12'];
-
-function filtroCategorico(entity, column, valores) {
-  const name = crypto.createHash('md5').update(`${entity}.${column}`).digest('hex').slice(0, 20);
-  return {
-    filters: [{
-      name,
-      field: { Column: { Expression: { SourceRef: { Entity: entity } }, Property: column } },
-      type: 'Categorical',
-      filter: {
-        From: [{ Name: 'c', Entity: entity, Type: 0 }],
-        Where: [{ Condition: { In: {
-          Expressions: [{ Column: { Expression: { SourceRef: { Source: 'c' } }, Property: column } }],
-          Values: valores.map(v => [{ Literal: { Value: `'${v}'` } }])
-        } } }]
-      }
-    }]
-  };
-}
-
 function cfSemaforo(medida, reglas, defaultColor) {
   return [{
     properties: {
@@ -304,43 +283,6 @@ function cfCubetas(medida, casos, defaultHex) {
     },
     selector: { data: [{ dataViewWildcard: { matchingOption: 1 } }], metadata: `Medidas.${medida}` }
   }];
-}
-function cfIconos(medida, casos, defaultIcon) {
-  return {
-    properties: {
-      icon: {
-        kind: 'Icon',
-        layout: { expr: { Literal: { Value: "'Before'" } } },
-        verticalAlignment: { expr: { Literal: { Value: "'Middle'" } } },
-        value: { expr: { Conditional: {
-          Cases: casos.map(([kind, umbral, icon]) => ({
-            Condition: { Comparison: { ComparisonKind: kind,
-              Left: { Measure: { Expression: { SourceRef: { Entity: 'Medidas' } }, Property: medida } },
-              Right: { Literal: { Value: `${umbral}D` } } } },
-            Value: { Literal: { Value: `'${icon}'` } }
-          })),
-          DefaultValue: { Literal: { Value: `'${defaultIcon}'` } }
-        } } }
-      }
-    },
-    selector: { data: [{ dataViewWildcard: { matchingOption: 1 } }], metadata: `Medidas.${medida}` }
-  };
-}
-function cfFontSigno(medida, negHex, posHex) {
-  return {
-    properties: {
-      fontColor: { solid: { color: { expr: { Conditional: {
-        Cases: [{
-          Condition: { Comparison: { ComparisonKind: 3,
-            Left: { Measure: { Expression: { SourceRef: { Entity: 'Medidas' } }, Property: medida } },
-            Right: { Literal: { Value: '0D' } } } },
-          Value: { Literal: { Value: `'${negHex}'` } }
-        }],
-        DefaultValue: { Literal: { Value: `'${posHex}'` } }
-      } } } } }
-    },
-    selector: { data: [{ dataViewWildcard: { matchingOption: 1 } }], metadata: `Medidas.${medida}` }
-  };
 }
 function dataBars(medida, posHex, negHex, axisHex) {
   return {

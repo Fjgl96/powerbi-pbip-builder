@@ -72,9 +72,9 @@ Fuente de verdad: <https://github.com/Fjgl96/powerbi-pbip-builder> (rama `main`)
 git clone https://github.com/Fjgl96/powerbi-pbip-builder.git
 ```
 
-El ejemplar instalado en `~/.agents/skills/powerbi-pbip-builder/` es la copia
-operativa: al versionar un cambio, replicarlo en la copia instalada
-(o reinstalar desde el release).
+El ejemplar instalado en `%USERPROFILE%\.agents\skills\powerbi-pbip-builder\`
+(Windows) es la copia operativa: al versionar un cambio, replicarlo en la copia
+instalada (o reinstalar desde el release).
 
 - Rama `main`; releases con tag `vX.Y.Z` (ver `CHANGELOG.md`).
 - Los aprendizajes nuevos van a `docs/APRENDIZAJES.md` **y** al catálogo de

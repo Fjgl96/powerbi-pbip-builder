@@ -2,7 +2,7 @@
 name: powerbi-pbip-builder
 description: Elabora reportes Power BI (PBIP) completos desde cero o existentes, con MCP en modelo vivo o solo con archivos TMDL+PBIR, incluyendo medidas DAX, relaciones, páginas ejecutivas y corrección de gráficos y etiquetas. Aplica guía de diseño elite (paleta IBCS, tipografía, grid, tema propio, formato condicional). Usar SIEMPRE que el usuario quiera crear un reporte, cargar CSV/Excel, auditar o reparar un modelo, rediseñar páginas, o cuando un .pbip dé errores al abrir, medidas en blanco/0, totales repetidos, YTD vacío o tarjetas truncadas.
 metadata:
-  version: 2.1.2
+  version: 2.1.3
 ---
 
 # Power BI PBIP Builder

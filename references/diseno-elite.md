@@ -147,8 +147,8 @@ nunca `Between` salvo exploración de fechas real del analista.
 
 | Técnica | Dónde | Umbral / colores |
 |---|---|---|
-| Fondo semáforo tarjeta | KPI cumplimiento | ≥98 % `#E3F5EB` · ≥90 % `#FCF1DC` · resto `#FBE5E5` |
-| Acento lateral tarjeta (4px) | KPI (cardVisual) | Trío oscuro accesible: `#0F7B4F` / `#B7791F` / `#C0392B` |
+| Fondo semáforo tarjeta | KPI cumplimiento (foco único) | ≥98 % `#E3F5EB` · ≥90 % `#FCF1DC` · resto `#FBE5E5` |
+| Color de estado en el valor | Tarjeta (cardVisual `value.fontColor`) | Trío oscuro accesible: `#0F7B4F` / `#B7791F` / `#C0392B` (sin barras decorativas) |
 | Cubetas de cumplimiento | Matriz/tabla | <90 % `#FBE5E5` · 90-98 % `#FCF1DC` · ≥98 % `#E3F5EB` (texto `#1E3A4F`, AAA) |
 | Iconos de estado | Tabla (Cumpl. %) | `TrafficHigh`/`TrafficMedium`/`TrafficLow` (`values.icon`, catálogo cerrado) |
 | Data bars | Tabla (magnitud) | `columnFormatting.dataBars`, selector SOLO `metadata`, tinte claro |

@@ -2,6 +2,28 @@
 
 Formato: [Keep a Changelog](https://keepachangelog.com/es/1.1.0/) · Versionado semántico.
 
+## [2.1.3] — 2026-09-16
+
+Revisión integral del repo (auditoría de consistencia guía ↔ código).
+
+### Corregido
+- Guía §6: retirado "Acento lateral tarjeta (4px)" (la técnica vigente es color
+  de estado en el valor, sin barras decorativas).
+- `docs/APRENDIZAJES.md`: agregadas las lecciones de doble eje Y2, unidad
+  declarada una vez (medidas escaladas) y divisor/fondo de `referenceLabel`.
+
+### Agregado
+- `LICENSE` (MIT, como el upstream del que destila la guía).
+
+### Cambiado
+- README: ruta de instalación Windows (`%USERPROFILE%\.agents\skills\...`).
+
+### Limpieza
+- Plantilla: eliminados helpers sin uso (`cfIconos`, `cfFontSigno`,
+  `filtroCategorico`, `MESES_VENTANA`).
+- Generador Cordillera: eliminados `titleMeasure`, `filtroCategorico`,
+  `MESES_12` y las 4 medidas `Título *` huérfanas (títulos estáticos vigentes).
+
 ## [2.1.2] — 2026-09-15
 
 Iteración de unidades y limpieza de tarjetas (feedback de revisión).

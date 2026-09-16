@@ -56,6 +56,9 @@ reales (Andes Bebidas y Cordillera Alimentos) y de la investigación de diseño
 | Color de datos | Vivos (`#44C088/#F2C14E/#ED7373`) para **rellenos amplios**; oscuros (`#0F7B4F/#B7791F/#C0392B`) para **trazos finos y texto** (WCAG 1.4.11); comparación `#6B7C8C`; texto atenuado `#5A6B7B` |
 | Semáforo y daltonismo | El color solo no alcanza: sumar redundancia no cromática (iconos, signos, texto de estado) |
 | Headers de visual | Ocultos por defecto en el tema (`visualHeader.show=false`) — limpieza visual estándar |
+| Doble eje accidental | El combo (`Y2`) pone la línea en un **eje secundario** automático y las escalas divergen con el filtro: misma unidad ⇒ un solo eje (`lineChart` 2 series o columnas agrupadas). Anti-patrón documentado |
+| Unidad repetida por etiqueta | La unidad se declara UNA vez (título del gráfico o header de columna) + medidas escaladas (`Venta M`, `Desviación M`, sufijo `"M"` en KPI). Celdas/etiquetas con números limpios |
+| `divider` y fondo de `referenceLabel` | La `cardVisual` trae divisor visible y chip de fondo por defecto (se ve "feo/recortado"): apagar ambos por visual (`divider.show:false`, `referenceLabel.backgroundShow:false`) |
 
 ---
 
